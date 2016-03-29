@@ -1,15 +1,16 @@
 # lib/car.rb
 
 class Car
-  def initialize(color, make, model)
+  def initialize(color, make, model, sound)
     @color = color
     @make = make
     @model = model
+    @sound = sound
     @miles = 0
   end
 
   def rev
-    puts "Broom"
+    puts @sound
   end
 
   def set_price(price)
