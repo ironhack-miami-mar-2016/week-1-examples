@@ -1,18 +1,18 @@
 require "imdb"
+require_relative "lib/grid_maker.rb"
 
-search = Imdb::Search.new("The Godfather")
-# Grab the first result of the search.movies array
-the_movie = search.movies[0]
+movie_titles = IO.readlines("list_of_movies.txt")
 
-puts the_movie.title
-puts the_movie.rating
-puts "the_movie's class is #{the_movie.class}"
+p movie_titles
+movies = movie_titles.map do | title | 
+	search = Imdb::Search.new(title)
+	if search.movies[0].rating
+		search.movies[0]
+	else
+		search.movies[1]
+	end
+	# search.movies[0].rating ? search.movies[0] : search.movies[1]
+end
 
-puts "\n-----------------------\n"
-
-search = Imdb::Search.new("Looper")
-# Grab the first result of the search.movies array
-the_movie = search.movies[0]
-
-puts the_movie.title
-puts the_movie.rating
+my_grid = GridMaker.new(movies)
+my_grid.make_chart
